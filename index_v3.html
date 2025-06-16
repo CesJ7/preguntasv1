@@ -244,11 +244,11 @@
             <div class="p-4">
                 <div class="mb-3">
                     <label class="form-label"><strong>Nombre de Usuario</strong></label>
-                    <input type="text" id="loginName" class="form-control" value="SILVIA" readonly autocomplete="username">
+                    <input type="text" id="loginName" class="form-control" value="SILVIA" autocomplete="username">
                 </div>
                 <div class="mb-3">
                     <label class="form-label"><strong>Contraseña</strong></label>
-                    <input type="password" id="loginPassword" class="form-control" value="" autocomplete="current-password">
+                    <input type="password" id="loginPassword" class="form-control" value="123456" autocomplete="current-password">
                 </div>
                 <div id="loginError" class="alert alert-danger text-center" style="display:none;"></div>
                 <button id="loginBtn" class="btn btn-primary-custom w-100">Ingresar</button>
@@ -1068,7 +1068,7 @@
             document.getElementById('loginBtn').addEventListener('click', function() {
                 const name = document.getElementById('loginName').value.trim() || 'SILVIA';
                 const pass = document.getElementById('loginPassword').value;
-                if (pass === '123+') {
+                if (pass === '123456') {
                     studentName = name;
                     document.getElementById('loginScreen').style.display = 'none';
                     document.getElementById('mainApp').style.display = 'block';
