@@ -772,54 +772,31 @@
 
         function selectAnswer(selectedOption) {
             const question = currentExam[currentQuestionIndex];
-            const isCorrect = selectedOption === question.correct;
-            
             // Buscar si ya hay respuesta guardada
             let answer = userAnswers.find(a => a.questionIndex === currentQuestionIndex);
             if (answer) {
                 answer.selected = selectedOption;
-                answer.correct = isCorrect;
+                answer.correct = selectedOption === question.correct;
             } else {
                 userAnswers.push({
                     questionIndex: currentQuestionIndex,
                     selected: selectedOption,
-                    correct: isCorrect,
+                    correct: selectedOption === question.correct,
                     question: question
                 });
             }
-
-            // Deshabilitar todas las opciones
-            const options = document.querySelectorAll('.option-btn');
-            options.forEach(btn => btn.disabled = true);
-
-            // Marcar la opción seleccionada como correcta o incorrecta
-            document.getElementById(`option${selectedOption}`).classList.add(
-                isCorrect ? 'option-correct' : 'option-incorrect'
-            );
-            
-            // Siempre mostrar la respuesta correcta
-            if (!isCorrect) {
-                document.getElementById(`option${question.correct}`).classList.add('option-correct');
-            }
-
-            // Mostrar explicación
-            const explanationDiv = document.createElement('div');
-            explanationDiv.className = 'explanation-box mt-3';
-            explanationDiv.innerHTML = `
-                <h6><i class="fas fa-lightbulb"></i> Explicación:</h6>
-                <p>${question.explanation}</p>
-            `;
-            document.querySelector('.question-card').appendChild(explanationDiv);
-
-            // Mostrar botón siguiente
-            const nextButtonContainer = document.createElement('div');
-            nextButtonContainer.className = 'text-center mt-3';
-            nextButtonContainer.innerHTML = `
-                <button class="btn btn-primary-custom" onclick="nextQuestion()">
-                    <i class="fas fa-arrow-right"></i> Siguiente Pregunta
-                </button>
-            `;
-            document.querySelector('.question-card').appendChild(nextButtonContainer);
+            // Solo actualizar visualmente los botones de opción
+            const options = ['A', 'B', 'C', 'D'];
+            options.forEach(opt => {
+                const btn = document.getElementById(`option${opt}`);
+                if (btn) {
+                    if (opt === selectedOption) {
+                        btn.classList.add('option-selected');
+                    } else {
+                        btn.classList.remove('option-selected');
+                    }
+                }
+            });
         }
 
         function nextQuestion() {
